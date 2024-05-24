@@ -23,7 +23,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install numpy pytest
+        pip install numpy pytest torch
 
     - name: Run tests
       run: pytest
