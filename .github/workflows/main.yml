@@ -2,11 +2,14 @@ name: Run Tests
 
 on:
   push:
-    branches:
-      - main
+    paths:
+      - 'layered_model.py'
+      - 'layered_model_test.py'
   pull_request:
-    branches:
-      - main
+    paths:
+      - 'layered_model.py'
+      - 'layered_model_test.py'
+  workflow_dispatch:
 
 jobs:
   test:
@@ -19,17 +22,13 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.12
+        python-version: 3.8
 
     - name: Install dependencies
       run: |
-        pip install numpy pytest torch
+        python -m pip install --upgrade pip
+        pip install tensorflow pytest
 
     - name: Run tests
-      run: pytest
-
-    - name: Upload test results
-      uses: actions/upload-artifact@v2
-      with:
-        name: test-results
-        path: pytest.xml
+      run: |
+        pytest layered_model_test.py
